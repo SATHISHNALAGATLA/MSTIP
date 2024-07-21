@@ -217,7 +217,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': Bearer ${token}
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ title, content })
             });
@@ -245,7 +245,7 @@
                 data.forEach(post => {
                     const postDiv = document.createElement('div');
                     postDiv.className = 'post';
-                    postDiv.innerHTML = <img src="MOVIE 1.jpg" alt="MOVIE 1"><h2>${post.title}</h2><p>${post.content}</p><button onclick="showSection('post-details')">Read More</button>;
+                    postDiv.innerHTML = `<img src="MOVIE 1.jpg" alt="MOVIE 1"><h2>${post.title}</h2><p>${post.content}</p><button onclick="showSection('post-details')">Read More</button>`;
                     homeSection.appendChild(postDiv);
                 });
             } else {
@@ -254,7 +254,7 @@
         }
 
         async function getPostById(postId) {
-            const response = await fetch(/api/posts/${postId}, {
+            const response = await fetch(`/api/posts/${postId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -264,11 +264,11 @@
             const data = await response.json();
             if (response.ok) {
                 const postDetailsSection = document.getElementById('post-details');
-                postDetailsSection.innerHTML = <h1>Post Details</h1><div class="post"><img src="MOVIE 2.jpeg" alt="MOVIE 2"><h2>${data.title}</h2><p>${data.content}</p></div><h3>Comments</h3>;
+                postDetailsSection.innerHTML = `<h1>Post Details</h1><div class="post"><img src="MOVIE 2.jpeg" alt="MOVIE 2"><h2>${data.title}</h2><p>${data.content}</p></div><h3>Comments</h3>`;
                 data.comments.forEach(comment => {
                     const commentDiv = document.createElement('div');
                     commentDiv.className = 'comment';
-                    commentDiv.innerHTML = <p><strong>${comment.author.username}:</strong> ${comment.content}</p>;
+                    commentDiv.innerHTML = `<p><strong>${comment.author.username}:</strong> ${comment.content}</p>`;
                     postDetailsSection.appendChild(commentDiv);
                 });
                 postDetailsSection.innerHTML += '<textarea placeholder="Add a comment..."></textarea><button>Submit</button>';
@@ -278,11 +278,11 @@
         }
 
         async function createComment(postId, content) {
-            const response = await fetch(/api/comments/${postId}, {
+            const response = await fetch(`/api/comments/${postId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': Bearer ${token}
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ content })
             });
